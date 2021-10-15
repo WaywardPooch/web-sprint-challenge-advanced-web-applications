@@ -1,10 +1,14 @@
+// Libraries
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+// Utilities
 import axiosWithAuth from "./../utils/axiosWithAuth";
 
 const Logout = () => {
+  // Destructuring
   const { push } = useHistory();
 
+  // Side Effects (Send logout request on mount)
   useEffect(() => {
     axiosWithAuth()
       .post("http://localhost:5000/api/logout")

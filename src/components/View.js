@@ -1,16 +1,20 @@
+// Libraries
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
+// Components
 import Article from "./Article";
 import EditForm from "./EditForm";
-import articleService from "../services/articleServices";
+// Utilities/Services
 import axiosWithAuth from "../utils/axiosWithAuth";
+import articleService from "../services/articleServices";
 
 const View = (props) => {
+  // States
   const [articles, setArticles] = useState([]);
   const [editing, setEditing] = useState(false);
   const [editId, setEditId] = useState();
 
+  // Side Effects
   useEffect(() => {
     const getArticles = async () => {
       const articleResponse = await articleService();
@@ -19,6 +23,7 @@ const View = (props) => {
     getArticles();
   }, []);
 
+  // Event handlers
   const handleDelete = (id) => {
     axiosWithAuth()
       .delete(`http://localhost:5000/api/articles/${id}`)
@@ -29,7 +34,6 @@ const View = (props) => {
         console.error("FAILED TO DELETE ARTICLE!", error);
       });
   };
-
   const handleEdit = (article) => {
     axiosWithAuth()
       .put(`http://localhost:5000/api/articles/${editId}`, article)
@@ -41,12 +45,10 @@ const View = (props) => {
         console.error("FAILED TO EDIT ARTICLE!", error);
       });
   };
-
   const handleEditSelect = (id) => {
     setEditing(true);
     setEditId(id);
   };
-
   const handleEditCancel = () => {
     setEditing(false);
   };

@@ -1,8 +1,9 @@
+// Libraries
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
 import styled from "styled-components";
-
+// Components
+import PrivateRoute from "./PrivateRoute";
 import Header from "./Header";
 import LambdaHeader from "./LambdaHeader";
 import View from "./View";
@@ -19,7 +20,9 @@ const App = () => {
           <PrivateRoute path="/logout" component={Logout} />
           <PrivateRoute path="/view" component={View} />
           <Route path="/login" component={Login} />
-          <Route exact path="/" component={Login} />
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
         </Switch>
       </RouteContainer>
     </AppContainer>

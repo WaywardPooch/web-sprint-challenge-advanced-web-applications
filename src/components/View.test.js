@@ -1,19 +1,25 @@
+// Libraries
 import React from "react";
 import moment from "moment";
-import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
+// Components
 import View from "./View";
-
+// Mock API
 import articleService from "./../services/articleServices.js";
 jest.mock("./../services/articleServices.js");
 
+// Tests
 test("renders zero articles without errors", async () => {
+  // Arrange: Return an empty array as data from the API
   articleService.mockResolvedValueOnce({
     data: [],
   });
 
+  // Act: Render the articles page
   render(<View />);
 
+  // Assert: Expect there to be 0 articles on-screen
   await waitFor(() => {
     const articles = screen.queryAllByTestId("article");
     expect(articles).toHaveLength(0);
@@ -21,6 +27,7 @@ test("renders zero articles without errors", async () => {
 });
 
 test("renders three articles without errors", async () => {
+  // Arrange: Return 3 articles from the API
   articleService.mockResolvedValueOnce({
     data: [
       {
@@ -59,8 +66,10 @@ test("renders three articles without errors", async () => {
     ],
   });
 
+  // Act: Render the articles page
   render(<View />);
 
+  // Assert: Expect there to be 3 articles on-screen
   await waitFor(() => {
     const articles = screen.queryAllByTestId("article");
     expect(articles).toHaveLength(3);

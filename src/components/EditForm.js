@@ -1,7 +1,9 @@
+// Libraries
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axiosWithAuth from "../utils/axiosWithAuth";
 
+// Initial Data
 const initialArticle = {
   id: "",
   headline: "",
@@ -11,9 +13,13 @@ const initialArticle = {
 };
 
 const EditForm = (props) => {
-  const [article, setArticle] = useState(initialArticle);
+  // Destructuring
   const { handleEdit, handleEditCancel, editId } = props;
 
+  // States
+  const [article, setArticle] = useState(initialArticle);
+
+  // Side Effects
   useEffect(() => {
     axiosWithAuth()
       .get(`http://localhost:5000/api/articles/${editId}`)
@@ -25,18 +31,17 @@ const EditForm = (props) => {
       });
   }, []);
 
+  // Event Handlers
   const handleChange = (e) => {
     setArticle({
       ...article,
       [e.target.name]: e.target.value,
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEdit(article);
   };
-
   const handleCancel = (e) => {
     e.preventDefault();
     handleEditCancel();
