@@ -12,7 +12,11 @@ const View = (props) => {
   const [editId, setEditId] = useState();
 
   useEffect(() => {
-    articleService(setArticles);
+    const getArticles = async () => {
+      const articleResponse = await articleService();
+      setArticles(articleResponse.data);
+    };
+    getArticles();
   }, []);
 
   const handleDelete = (id) => {
