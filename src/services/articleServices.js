@@ -4,7 +4,6 @@ const articleService = (stateSetter) => {
   axiosWithAuth()
     .get("http://localhost:5000/api/articles")
     .then((response) => {
-      console.log("ARTICLES DATA:", response.data);
       return stateSetter(response.data);
     })
     .catch((error) => {

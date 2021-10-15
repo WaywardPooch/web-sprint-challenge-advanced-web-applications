@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import Article from "./Article";
 import EditForm from "./EditForm";
-
 import articleService from "../services/articleServices";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 const View = (props) => {
   const [articles, setArticles] = useState([]);
@@ -15,11 +15,20 @@ const View = (props) => {
     articleService(setArticles);
   }, []);
 
-  useEffect(() => {
-    console.log(articles);
-  }, [articles]);
-
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    axiosWithAuth()
+      .delete(`http://localhost:5000/api/articles/${id}`)
+      .then((response) => {
+        console.log(
+          "SUCCESSFULLY DELETED ARTICLE! Current list:",
+          response.data
+        );
+        setArticles(response.data);
+      })
+      .catch((error) => {
+        console.error("FAILED TO DELETE ARTICLE!", error);
+      });
+  };
 
   const handleEdit = (article) => {};
 
