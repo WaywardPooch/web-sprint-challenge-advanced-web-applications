@@ -19,10 +19,6 @@ const View = (props) => {
     axiosWithAuth()
       .delete(`http://localhost:5000/api/articles/${id}`)
       .then((response) => {
-        console.log(
-          "SUCCESSFULLY DELETED ARTICLE! Current list:",
-          response.data
-        );
         setArticles(response.data);
       })
       .catch((error) => {
@@ -30,7 +26,17 @@ const View = (props) => {
       });
   };
 
-  const handleEdit = (article) => {};
+  const handleEdit = (article) => {
+    axiosWithAuth()
+      .put(`http://localhost:5000/api/articles/${editId}`, article)
+      .then((response) => {
+        setEditing(false);
+        setArticles(response.data);
+      })
+      .catch((error) => {
+        console.error("FAILED TO EDIT ARTICLE!", error);
+      });
+  };
 
   const handleEditSelect = (id) => {
     setEditing(true);
