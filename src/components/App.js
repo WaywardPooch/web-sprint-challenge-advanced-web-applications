@@ -16,8 +16,8 @@ const App = () => {
       <Header />
       <RouteContainer>
         <Switch>
-          <Route path="/logout" component={Logout} />
-          <Route path="/view" component={View} />
+          <PrivateRoute path="/logout" component={Logout} />
+          <PrivateRoute path="/view" component={View} />
           <Route path="/login" component={Login} />
           <Route exact path="/" component={Login} />
         </Switch>
